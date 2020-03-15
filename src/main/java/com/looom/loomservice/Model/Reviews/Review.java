@@ -15,7 +15,7 @@ public class Review {
     @Id
     @AttributeOverrides({
             @AttributeOverride(name = "date", column = @Column(name = "date", nullable = false, insertable = true, updatable = false)),
-            @AttributeOverride(name = "student", column = @Column(name = "student", nullable = false, updatable = false, insertable = true))
+            @AttributeOverride(name = "student", column = @Column(name = "student",  nullable = false, insertable = false, updatable = false))
     })
     private ReviewPrimaryKey id;
 
@@ -28,11 +28,11 @@ public class Review {
     private String review;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(table = "User", nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = "teacher",  nullable = false, insertable = false, updatable = false)
     private Teacher teacher;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(table = "User", nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = "student",  nullable = false, insertable = false, updatable = false)
     private Student student;
 
     public Review() {

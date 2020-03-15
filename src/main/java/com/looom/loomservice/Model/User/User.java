@@ -31,12 +31,6 @@ class User {
     @Column(nullable = false, updatable = true, insertable = true)
     String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    Set<Review> reviews = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    Set<Booking> bookings = new HashSet<>();
-
     User() {
     }
 
@@ -69,22 +63,6 @@ class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Set<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Set<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
     }
 
     @Override

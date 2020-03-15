@@ -1,9 +1,12 @@
 package com.looom.loomservice.Model.Packages;
 
+import com.looom.loomservice.Model.Booking.Booking;
 import com.looom.loomservice.Model.User.Teacher;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Packages")
@@ -12,7 +15,7 @@ public class Packages {
     @Id
     @AttributeOverrides({
             @AttributeOverride(name = "name", column = @Column(nullable = false, name = "name")),
-            @AttributeOverride(name = "teacher", column = @Column(nullable = false, name = "teacher"))
+            @AttributeOverride(name = "teacher", column = @Column(name = "teacher",  nullable = false, insertable = false, updatable = false))
     })
     PackagesPrimaryKey id;
 
@@ -23,8 +26,11 @@ public class Packages {
     Long perHowManyMinutes;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(table = "User", name = "id")
+    @JoinColumn( name = "teacher",  nullable = false, insertable = false, updatable = false)
     Teacher teacher;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "packages")
+    Set<Booking> bookings = new HashSet<>();
 
     public Packages() {
     }

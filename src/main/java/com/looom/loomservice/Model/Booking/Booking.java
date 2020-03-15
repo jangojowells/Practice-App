@@ -2,7 +2,6 @@ package com.looom.loomservice.Model.Booking;
 
 import com.looom.loomservice.Model.Packages.Packages;
 import com.looom.loomservice.Model.User.Student;
-import com.looom.loomservice.Model.User.Teacher;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,21 +16,17 @@ public class Booking {
     private BookingPrimaryKey id;
 
     @Column(nullable = false)
-    private Date end;
+    private Timestamp end;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(table = "Packages", name = "name", nullable = false, insertable = true, updatable = false),
-            @JoinColumn(table = "Packages", name = "teacher", nullable = false, insertable = true, updatable = false)
+            @JoinColumn( name = "package", nullable = false, insertable = false, updatable = false),
+            @JoinColumn( name = "student", nullable = false, insertable = false, updatable = false)
     })
     private Packages packages;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(table = "User", name = "id")
-    private Teacher teacher;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(table = "User", name = "id")
+    @JoinColumn(name = "student", nullable = false, insertable = false, updatable = false)
     private Student student;
 
     public Booking() {
@@ -53,16 +48,16 @@ public class Booking {
         this.id.setStart(start);
     }
 
-    public Date getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 
     public void setEnd(Long end) {
-        this.end = new Date(end);
+        this.end = new Timestamp(end);
     }
 
     public Packages getPackages() {
@@ -71,14 +66,6 @@ public class Booking {
 
     public void setPackages(Packages packages) {
         this.packages = packages;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
     }
 
     public Student getStudent() {
@@ -108,7 +95,6 @@ public class Booking {
                 "id=" + id +
                 ", end=" + end +
                 ", packages=" + packages +
-                ", teacher=" + teacher +
                 ", student=" + student +
                 '}';
     }
